@@ -40,7 +40,11 @@ To run this project, follow these steps:
 4. **Start the app:**
 
    ```bash
-   ionic serve
+   npm run dev
+   ```
+5. **Run on iOS**
+   ```bash
+   npm run ios
    ```
 
 ## Usage
