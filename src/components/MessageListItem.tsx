@@ -1,33 +1,118 @@
 import {
+  IonIcon,
   IonItem,
+  IonItemOption,
+  IonItemOptions,
+  IonItemSliding,
   IonLabel,
-  IonNote
-  } from '@ionic/react';
-import { Message } from '../data/messages';
-import './MessageListItem.css';
+  IonNote,
+} from "@ionic/react";
+import styled from "styled-components";
+import moment from "moment";
+import { mailUnread } from "ionicons/icons";
+import { IPayslip } from "../atoms/payslipAtom";
 
-interface MessageListItemProps {
-  message: Message;
+interface IProps {
+  payslip: IPayslip;
+  onSetAsUnread: () => void;
+  onClick: () => void;
 }
 
-const MessageListItem: React.FC<MessageListItemProps> = ({ message }) => {
+export const PayslipListItem: React.FC<IProps> = ({
+  payslip,
+  onClick,
+  onSetAsUnread,
+}) => {
   return (
-    <IonItem routerLink={`/message/${message.id}`} detail={false}>
-      <div slot="start" className="dot dot-unread"></div>
-      <IonLabel className="ion-text-wrap">
-        <h2>
-          {message.fromName}
-          <span className="date">
-            <IonNote>{message.date}</IonNote>
-          </span>
-        </h2>
-        <h3>{message.subject}</h3>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-      </IonLabel>
-    </IonItem>
+    <IonItemSliding>
+      <Item routerLink={`/message/${payslip.id}`} button onClick={onClick}>
+        <div
+          slot="start"
+          className={payslip.isNew ? "dot dot-unread" : "dot"}
+        />
+
+        <Label className="ion-text-wrap">
+          <h2>
+            Payment for {moment(payslip.fromDate).format("YYYY-MM-DD")}
+            <span className="date">
+              <IonNote>{moment(payslip.toDate).format("DD MMM")}</IonNote>
+            </span>
+          </h2>
+        </Label>
+      </Item>
+      <IonItemOptions slot="end">
+        {!payslip.isNew && (
+          <IonItemOption color="primary" onClick={onSetAsUnread}>
+            <IonIcon slot="icon-only" icon={mailUnread}></IonIcon>
+          </IonItemOption>
+        )}
+      </IonItemOptions>
+    </IonItemSliding>
   );
 };
 
-export default MessageListItem;
+const Item = styled(IonItem)`
+  --padding-start: 0;
+  h2 {
+    font-weight: 600;
+    margin: 0;
+
+    /**
+   * With larger font scales
+   * the date/time should wrap to the next
+   * line. However, there should be
+   * space between the name and the date/time
+   * if they can appear on the same line.
+   */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 95%;
+  }
+
+  .date {
+    align-items: center;
+    display: flex;
+  }
+
+  ion-icon {
+    color: #c9c9ca;
+  }
+
+  ion-note {
+    font-size: 0.9375rem;
+    margin-right: 8px;
+    font-weight: normal;
+  }
+
+  ion-note.md {
+    margin-right: 14px;
+  }
+
+  .dot {
+    display: block;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    align-self: start;
+    margin: 16px 10px 16px 16px;
+  }
+  .dot-unread {
+    background: var(--ion-color-primary);
+  }
+
+  ion-footer ion-title {
+    font-size: 11px;
+    font-weight: normal;
+  }
+`;
+
+const Label = styled(IonLabel)`
+  margin-top: 12px;
+  margin-bottom: 12px;
+`;
