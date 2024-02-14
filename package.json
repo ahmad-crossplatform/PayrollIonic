@@ -10,9 +10,11 @@
     "test.e2e": "cypress run",
     "test.unit": "vitest",
     "lint": "eslint",
-    "ios": "ionic capacitor sync ios && ionic capacitor run ios -l --external"
+    "ios": "ionic capacitor sync ios && ionic capacitor run ios -l --external",
+    "android": "ionic capacitor sync android && ionic capacitor run android -l --external"
   },
   "dependencies": {
+    "@capacitor/android": "5.7.0",
     "@capacitor/app": "5.0.7",
     "@capacitor/core": "5.7.0",
     "@capacitor/filesystem": "^5.2.1",

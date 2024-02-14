@@ -2,6 +2,10 @@
 
 This app allows users to view and manage their payslips. It's built using Ionic React with Styled Components for styling and Jotai for state management.
 
+```bash
+* For the lack of android devices this has been tested on Web and iOS device *
+```
+
 ## Table of Contents
 
 - [Technologies](#technologies)
@@ -42,9 +46,14 @@ To run this project, follow these steps:
    ```bash
    npm run dev
    ```
+
 5. **Run on iOS**
    ```bash
    npm run ios
+   ```
+6. **Run on android**
+   ```bash
+   npm run android
    ```
 
 ## Usage

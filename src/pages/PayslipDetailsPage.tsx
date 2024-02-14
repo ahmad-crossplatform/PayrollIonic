@@ -31,33 +31,6 @@ export const PayslipDetailsPage: React.FC = () => {
   const params = useParams<{ id: string }>();
   const { goBack } = useIonRouter();
 
-  const convertBlobToBase64 = (blob: Blob) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onerror = reject;
-      reader.onload = () => {
-        resolve(reader.result);
-      };
-      reader.readAsDataURL(blob);
-    });
-
-  async function downloadAndSaveImage(imageUrl: string, fileName: string) {
-    try {
-      const response = await fetch(imageUrl);
-      const blob = await response.blob();
-      const base64Data = await convertBlobToBase64(blob);
-
-      const savedFile = await Filesystem.writeFile({
-        path: fileName,
-        data: base64Data as string,
-        directory: Directory.Data,
-      });
-
-      console.log("Image saved", savedFile);
-    } catch (e) {
-      console.error("Error saving image", e);
-    }
-  }
   // This is fired when the component routing to is about to animate into view (fired by outlet).
   useIonViewWillEnter(() => {
     const foundPayslip = payslipList.find(
@@ -68,7 +41,6 @@ export const PayslipDetailsPage: React.FC = () => {
   });
 
   useEffect(() => {
-    // Share is not available in the web, so we need to check if it's available
     async function checkCanShare() {
       const share = await Share.canShare();
       setCanShare(share.value);
