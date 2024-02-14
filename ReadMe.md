@@ -1,4 +1,4 @@
-# Payslip Management App
+# PayrollIonic
 
 This app allows users to view and manage their payslips. It's built using Ionic React with Styled Components for styling and Jotai for state management.
 
@@ -28,7 +28,7 @@ To run this project, follow these steps:
 2. **Navigate to the project directory:**
 
    ```bash
-   cd payslip-management-app
+   cd PayrollIonic
    ```
 
 3. **Install dependencies:**
