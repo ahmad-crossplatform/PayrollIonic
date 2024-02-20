@@ -14,7 +14,6 @@ import {
   useIonViewWillEnter,
 } from "@ionic/react";
 import { download, mailOpen } from "ionicons/icons";
-import moment from "moment";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import styled from "styled-components";
@@ -23,6 +22,7 @@ import { useAtom } from "jotai";
 import { Share } from "@capacitor/share";
 import { Filesystem, Directory } from "@capacitor/filesystem";
 import { Capacitor } from "@capacitor/core";
+import { dateFormat } from "../helper/dateFormatter";
 
 export const PayslipDetailsPage: React.FC = () => {
   const [payslip, setPayslip] = useState<IPayslip>();
@@ -86,11 +86,11 @@ export const PayslipDetailsPage: React.FC = () => {
               ></IonIcon>
               <IonLabel className="ion-text-wrap">
                 <h2>
-                  Payment for {moment(payslip.fromDate).format("YYYY-MM-DD")}
+                  Payment for {dateFormat(payslip.fromDate, "YYYY-MM-DD")}
                   <span className="date">
                     <IonNote>
-                      {`${moment(payslip.fromDate).format("DD")} -
-                        ${moment(payslip.toDate).format("DD MMM")}`}
+                      {`${dateFormat(payslip.fromDate, "DD")} -
+                        ${dateFormat(payslip.fromDate, "DD MMM")}`}
                     </IonNote>
                   </span>
                 </h2>

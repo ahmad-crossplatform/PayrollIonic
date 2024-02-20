@@ -9,10 +9,10 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { useAtom } from "jotai";
-import moment from "moment";
 
 import { payslipAtom } from "../atoms/payslipAtom";
-import { PayslipListItem } from "../components/MessageListItem";
+import { PayslipListItem } from "../components/PayslipListItem";
+import { dateFormat } from "../helper/dateFormatter";
 
 export const PayslipListPage: React.FC = () => {
   const [payslips, setPayslips] = useAtom(payslipAtom);
@@ -31,7 +31,7 @@ export const PayslipListPage: React.FC = () => {
             .map((p, index) => (
               <IonItemGroup key={index}>
                 <IonItemDivider>
-                  {moment(p.fromDate).format("MMMM YYYY")}
+                  {dateFormat(p.fromDate, "MMMM YYYY")}
                 </IonItemDivider>
                 <PayslipListItem
                   key={p.id}

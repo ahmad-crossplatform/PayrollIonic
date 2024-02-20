@@ -11,6 +11,7 @@ import styled from "styled-components";
 import moment from "moment";
 import { mailUnread } from "ionicons/icons";
 import { IPayslip } from "../atoms/payslipAtom";
+import { dateFormat } from "../helper/dateFormatter";
 
 interface IProps {
   payslip: IPayslip;
@@ -25,7 +26,7 @@ export const PayslipListItem: React.FC<IProps> = ({
 }) => {
   return (
     <IonItemSliding>
-      <Item routerLink={`/message/${payslip.id}`} button onClick={onClick}>
+      <Item routerLink={`/payslip/${payslip.id}`} button onClick={onClick}>
         <div
           slot="start"
           className={payslip.isNew ? "dot dot-unread" : "dot"}
@@ -33,9 +34,9 @@ export const PayslipListItem: React.FC<IProps> = ({
 
         <Label className="ion-text-wrap">
           <h2>
-            Payment for {moment(payslip.fromDate).format("YYYY-MM-DD")}
+            Payment for {dateFormat(payslip.fromDate, "YYYY-MM-DD")}
             <span className="date">
-              <IonNote>{moment(payslip.toDate).format("DD MMM")}</IonNote>
+              <IonNote>{dateFormat(payslip.fromDate, "DD MMM")}</IonNote>
             </span>
           </h2>
         </Label>
